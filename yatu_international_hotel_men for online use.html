@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yatu International Hotel - Premium Digital Menu</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter & Playfair Display for premium luxury look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome for high-quality food, drink, and layout icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        gold: {
+                            50: '#fbf8eb',
+                            100: '#f5eecb',
+                            200: '#ebd996',
+                            300: '#dec05d',
+                            400: '#d1a431',
+                            500: '#b88a24', // Luxury Gold Accent
+                            600: '#996e1b',
+                            700: '#7a5416',
+                            800: '#5c3d11',
+                            900: '#40290a',
+                        },
+                        charcoal: {
+                            50: '#f4f4f5',
+                            100: '#e4e4e7',
+                            800: '#18181b',
+                            900: '#09090b', // Deep Dark
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom smooth scroll bar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #18181b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #b88a24;
+            border-radius: 3px;
+        }
+        .luxury-gradient {
+            background: linear-gradient(135deg, #09090b 0%, #1c1917 100%);
+        }
+        .gold-border-glow {
+            box-shadow: 0 0 15px rgba(184, 138, 36, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-100 font-sans selection:bg-gold-500 selection:text-black">
+
+    <div id="app" class="min-h-screen flex flex-col justify-between">
+        
+        <!-- Luxury Top Banner Notice -->
+        <div class="bg-gradient-to-r from-gold-900 via-gold-600 to-gold-900 text-zinc-900 text-xs font-bold py-2 px-4 text-center tracking-wider uppercase shadow-md flex items-center justify-center gap-2">
+            <i class="fa-solid fa-circle-exclamation animate-pulse"></i>
+            <span>All prices subject to 15% VAT & 10% Service Charge</span>
+        </div>
+
+        <!-- Premium Header Section -->
+        <header class="sticky top-0 z-40 bg-zinc-950/95 backdrop-blur-md border-b border-zinc-800/80 shadow-xl">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+                <!-- Hotel Branding -->
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-full border-2 border-gold-500 flex items-center justify-center bg-zinc-900 gold-border-glow">
+                        <span class="font-serif font-bold text-gold-500 text-xl tracking-tighter">Y</span>
+                    </div>
+                    <div>
+                        <h1 class="font-serif font-bold text-xl sm:text-2xl tracking-wide text-zinc-100 flex items-center gap-2">
+                            YATU <span class="text-gold-500 font-normal italic">Int'l Hotel</span>
+                        </h1>
+                        <p class="text-[10px] sm:text-xs text-zinc-400 tracking-widest uppercase">Customer Satisfaction is our Top Priority</p>
+                    </div>
+                </div>
+
+                <!-- Call & Table actions -->
+                <div class="flex items-center gap-3">
+                    <a href="tel:+251969242424" class="hidden sm:flex items-center gap-2 bg-zinc-900 border border-zinc-700 hover:border-gold-500 text-gold-500 hover:text-white px-4 py-2 rounded-full transition-all duration-300 text-sm">
+                        <i class="fa-solid fa-phone"></i>
+                        <span>+251969242424</span>
+                    </a>
+                    <button onclick="toggleBillEstimator()" class="relative bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-600 hover:to-gold-700 text-zinc-950 font-bold px-4 py-2.5 rounded-full flex items-center gap-2 transition-all duration-300 transform active:scale-95 shadow-lg shadow-gold-500/20 text-sm">
+                        <i class="fa-solid fa-receipt"></i>
+                        <span class="hidden md:inline">Bill Estimator</span>
+                        <span id="cart-badge-count" class="bg-zinc-950 text-gold-400 text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">0</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full flex-grow grid grid-cols-1 lg:grid-cols-4 gap-8">
+            
+            <!-- Left Side Categories / Search Panel -->
+            <section class="lg:col-span-1 space-y-6">
+                <!-- Search & Filters Container -->
+                <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl p-5 sticky top-28 space-y-5 shadow-lg">
+                    <h3 class="font-serif text-lg text-gold-400 border-b border-zinc-800 pb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-sliders text-xs"></i> Find Your Dish
+                    </h3>
+                    
+                    <!-- Search Input -->
+                    <div class="relative">
+                        <input type="text" id="search-input" oninput="handleSearch()" placeholder="Search dishes, drinks..." class="w-full bg-zinc-950 border border-zinc-800 focus:border-gold-500 rounded-xl py-3 pl-11 pr-4 text-sm text-zinc-200 placeholder-zinc-500 outline-none transition-all duration-300">
+                        <i class="fa-solid fa-magnifying-glass absolute left-4 top-3.5 text-zinc-500"></i>
+                    </div>
+
+                    <!-- Diet Toggles -->
+                    <div class="space-y-2">
+                        <label class="text-xs text-zinc-400 uppercase tracking-widest block font-medium">Dietary Prefs</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button id="veg-toggle" onclick="toggleDietFilter('veg')" class="bg-zinc-950 hover:bg-zinc-800 border border-zinc-800 rounded-xl p-2 text-xs flex items-center justify-center gap-1.5 transition-all text-zinc-400">
+                                <i class="fa-solid fa-leaf text-green-500"></i> Vegetarian
+                            </button>
+                            <button id="fasting-toggle" onclick="toggleDietFilter('fasting')" class="bg-zinc-950 hover:bg-zinc-800 border border-zinc-800 rounded-xl p-2 text-xs flex items-center justify-center gap-1.5 transition-all text-zinc-400">
+                                <i class="fa-solid fa-wheat-awn text-amber-500"></i> Fasting
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Category List Menu (Desktop) -->
+                    <div class="hidden lg:block space-y-1 pt-2">
+                        <label class="text-xs text-zinc-400 uppercase tracking-widest block font-medium mb-2">Sections</label>
+                        <div id="desktop-categories" class="space-y-1 max-h-[40vh] overflow-y-auto pr-1">
+                            <!-- Dynamic Categories -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Menu Catalog Display -->
+            <section class="lg:col-span-3 space-y-8">
+                
+                <!-- Quick Carousel Category Bar (Mobile/Tablet) -->
+                <div class="lg:hidden flex gap-2 overflow-x-auto pb-3 scrollbar-none snap-x" id="mobile-categories">
+                    <!-- Dynamic Categories Mobile -->
+                </div>
+
+                <!-- Active Filter Tags Display -->
+                <div id="filter-indicator-bar" class="hidden flex-wrap items-center gap-2 bg-zinc-900/50 p-3 rounded-xl border border-zinc-800">
+                    <span class="text-xs text-zinc-400">Filtering:</span>
+                    <span id="active-filters-container" class="flex flex-wrap gap-1"></span>
+                    <button onclick="clearAllFilters()" class="text-xs text-gold-500 hover:underline ml-auto">Clear Filters</button>
+                </div>
+
+                <!-- Menu Catalog Render container -->
+                <div id="menu-catalog-container" class="space-y-12">
+                    <!-- Dynamic Menu Items grouped by Categories will load here -->
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Interactive Bill Estimator Sliding Drawer -->
+        <div id="bill-estimator" class="fixed inset-0 z-50 overflow-hidden pointer-events-none transition-all duration-500 opacity-0 invisible">
+            <!-- Backdrop -->
+            <div onclick="toggleBillEstimator()" class="absolute inset-0 bg-black/80 backdrop-blur-sm pointer-events-auto cursor-pointer"></div>
+            
+            <!-- Drawer Body -->
+            <div class="absolute inset-y-0 right-0 max-w-md w-full bg-zinc-900 border-l border-zinc-800 flex flex-col justify-between shadow-2xl pointer-events-auto transform translate-x-full transition-transform duration-500" id="bill-estimator-panel">
+                <!-- Header -->
+                <div class="p-6 border-b border-zinc-800 flex items-center justify-between">
+                    <div>
+                        <h3 class="font-serif font-bold text-xl text-gold-400 flex items-center gap-2">
+                            <i class="fa-solid fa-calculator"></i> Bill Estimator
+                        </h3>
+                        <p class="text-xs text-zinc-400 mt-0.5">Simulate your dining final total</p>
+                    </div>
+                    <button onclick="toggleBillEstimator()" class="w-8 h-8 rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white flex items-center justify-center transition-colors">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <!-- Items list -->
+                <div id="estimator-items-container" class="flex-grow overflow-y-auto p-6 space-y-4">
+                    <!-- Added Items dynamic -->
+                    <div id="empty-estimator-state" class="h-full flex flex-col items-center justify-center text-center space-y-4 py-12">
+                        <div class="w-16 h-16 rounded-full bg-zinc-800 flex items-center justify-center text-zinc-600 text-2xl">
+                            <i class="fa-solid fa-receipt"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium text-zinc-400">No items selected yet</p>
+                            <p class="text-xs text-zinc-500 max-w-xs mt-1">Tap the gold pricing button on any menu dish to add it to your dining calculator!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calculations Footer -->
+                <div class="p-6 bg-zinc-950 border-t border-zinc-800 space-y-4">
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-sm text-zinc-400">
+                            <span>Subtotal</span>
+                            <span id="calc-subtotal" class="font-medium text-zinc-200">0.00 ETB</span>
+                        </div>
+                        <div class="flex justify-between text-sm text-zinc-400">
+                            <span class="flex items-center gap-1">Service Charge <span class="bg-zinc-800 text-zinc-400 px-1 py-0.5 rounded text-[10px]">10%</span></span>
+                            <span id="calc-service" class="font-medium text-zinc-200">0.00 ETB</span>
+                        </div>
+                        <div class="flex justify-between text-sm text-zinc-400">
+                            <span class="flex items-center gap-1">VAT <span class="bg-zinc-800 text-zinc-400 px-1 py-0.5 rounded text-[10px]">15%</span></span>
+                            <span id="calc-vat" class="font-medium text-zinc-200">0.00 ETB</span>
+                        </div>
+                        <div class="border-t border-zinc-800 pt-3 flex justify-between items-end">
+                            <div>
+                                <span class="text-xs text-zinc-400 uppercase tracking-widest block">Estimated Total</span>
+                                <span class="text-[10px] text-zinc-500 italic block">(Inc. Tax & S.C)</span>
+                            </div>
+                            <span id="calc-total" class="font-serif font-bold text-2xl text-gold-400">0.00 ETB</span>
+                        </div>
+                    </div>
+
+                    <button onclick="clearEstimator()" class="w-full bg-zinc-900 border border-zinc-800 hover:bg-zinc-800 py-3 rounded-xl text-zinc-300 font-medium text-sm transition-all flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-trash-can"></i> Clear Calculator
+                    </button>
+                    
+                    <p class="text-[10px] text-zinc-500 text-center">Note: This is an estimated simulator for planning and does not constitute an online order.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification Toast -->
+        <div id="toast-notif" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 bg-gold-500 text-zinc-950 font-bold px-6 py-3 rounded-full flex items-center gap-2 shadow-2xl transition-all duration-300 pointer-events-none opacity-0 translate-y-4">
+            <i class="fa-solid fa-check-circle"></i>
+            <span id="toast-message">Added to bill simulator!</span>
+        </div>
+
+        <!-- App Luxury Footer -->
+        <footer class="bg-zinc-950 border-t border-zinc-900 py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center text-center md:text-left">
+                    <div>
+                        <h2 class="font-serif font-bold text-lg text-gold-400">YATU INTERNATIONAL HOTEL</h2>
+                        <p class="text-xs text-zinc-400 mt-2">Bishoftu, Ethiopia</p>
+                        <p class="text-xs text-zinc-500">Experience world-class hospitality and exceptional tastes.</p>
+                    </div>
+                    <div class="flex justify-center gap-6 text-zinc-400">
+                        <a href="#" class="hover:text-gold-500 transition-colors"><i class="fa-brands fa-facebook text-xl"></i></a>
+                        <a href="#" class="hover:text-gold-500 transition-colors"><i class="fa-brands fa-instagram text-xl"></i></a>
+                        <a href="#" class="hover:text-gold-500 transition-colors"><i class="fa-brands fa-telegram text-xl"></i></a>
+                    </div>
+                    <div class="text-center md:text-right space-y-1">
+                        <p class="text-xs text-zinc-400">Need Table Assistance?</p>
+                        <a href="tel:+251969242424" class="text-gold-400 hover:text-gold-500 font-bold text-sm block"><i class="fa-solid fa-phone"></i> +251 969 242 424</a>
+                    </div>
+                </div>
+                <div class="border-t border-zinc-900 mt-8 pt-6 text-center text-zinc-500 text-[10px] tracking-wider uppercase">
+                    &copy; 2026 YATU INTERNATIONAL HOTEL. ALL RIGHTS RESERVED.
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        // Comprehensive Yatu International Hotel Menu Dataset
+        const menuDatabase = {
+            "soups": {
+                name: "Soups",
+                icon: "fa-soup",
+                items: [
+                    { id: "soup_minestrone", name: "Minestrone Soup", price: 248.73, description: "Classic Italian garden vegetable soup simmered in flavorful broth served with toasted garlic bread.", isVeg: true, isFasting: true, isSpicy: false, image: "soup_minestrone" },
+                    { id: "soup_chicken_cream", name: "Chicken Cream Soup", price: 294.13, description: "Velvety broth rich with tender shredded chicken breasts, light cream, fresh parsley, and carrots.", isVeg: false, isFasting: false, isSpicy: false, image: "soup_chicken_cream" }
+                ]
+            },
+            "pizza": {
+                name: "Pizzas",
+                icon: "fa-pizza-slice",
+                items: [
+                    { id: "pizza_polpetta", name: "Polpetta Pizza", price: 800.00, description: "Rich meatballs, golden mozzarella, tomato sauce, and savory Italian seasonings (Optional: No onion/capers).", isVeg: false, isFasting: false, isSpicy: false, image: "pizza_polpetta" },
+                    { id: "pizza_margherita", name: "Margherita Pizza", price: 747.00, description: "Elegant classic with house marinara, melted mozzarella, fresh basil oil, and sliced field tomatoes.", isVeg: true, isFasting: false, isSpicy: false, image: "pizza_margherita" },
+                    { id: "pizza_yatu_special", name: "Yatu Special Pizza", price: 772.50, description: "Chef's selection of premium meats, mixed bell peppers, red onions, mushrooms, and signature spices.", isVeg: false, isFasting: false, isSpicy: false, image: "pizza_yatu_special" },
+                    { id: "pizza_mediterranean", name: "Mediterranean Vegetarian Pizza", price: 1140.00, description: "Feta, olives, arugula, cherry tomatoes, and red onions over tomato base.", isVeg: true, isFasting: false, isSpicy: false, image: "pizza_med_veg" },
+                    { id: "pizza_mini", name: "Mini Pizza", price: 546.00, description: "Perfect snack-sized classic cheese and tomato base pizza for lighter appetites.", isVeg: true, isFasting: false, isSpicy: false, image: "pizza_mini" },
+                    { id: "pizza_prosciutto", name: "Prosciutto di Tacchino e Funghi", price: 892.50, description: "Cured turkey ham strips and savory wild mushrooms over fresh mozzarella base.", isVeg: false, isFasting: false, isSpicy: false, image: "pizza_prosciutto" }
+                ]
+            },
+            "spaghetti": {
+                name: "Spaghetti",
+                icon: "fa-bowl-food",
+                items: [
+                    { id: "spag_arrabbiata", name: "Spaghetti All'Arrabbiata", price: 439.30, description: "Spicy garlic, tomatoes, and red chili pepper sauce cooked in olive oil.", isVeg: true, isFasting: true, isSpicy: true, image: "pasta_spag" },
+                    { id: "spag_veg", name: "Spaghetti Vegetable Sauce", price: 419.75, description: "Fresh garden vegetables tossed in seasoned light tomato and herb base.", isVeg: true, isFasting: true, isSpicy: false, image: "pasta_spag" },
+                    { id: "spag_alfredo", name: "Spaghetti Alfredo Sauce", price: 419.75, description: "Creamy garlic white butter parmesan sauce lovingly tossed over tender spaghetti.", isVeg: true, isFasting: false, isSpicy: false, image: "pasta_spag" },
+                    { id: "spag_tomato", name: "Spaghetti Tomato Sauce", price: 419.75, description: "Simple, satisfying house tomato marinara loaded with sweet basil leaves.", isVeg: true, isFasting: true, isSpicy: false, image: "pasta_spag" },
+                    { id: "spag_basil", name: "Spaghetti Basil & Olive Oil", price: 418.35, description: "Aromatic extra virgin olive oil, sweet fresh basil leaves, and cracked black pepper.", isVeg: true, isFasting: true, isSpicy: false, image: "pasta_spag" },
+                    { id: "spag_meat", name: "Spaghetti Meat Sauce", price: 520.80, description: "Savory slow-cooked minced beef bolognese with crushed tomatoes and herbs.", isVeg: false, isFasting: false, isSpicy: false, image: "pasta_spag" },
+                    { id: "spag_cream_tomato", name: "Spaghetti Tomato & Cream", price: 419.75, description: "Rich pink rose sauce balancing creamy comfort and tomato tang.", isVeg: true, isFasting: false, isSpicy: false, image: "pasta_spag" },
+                    { id: "spag_tuna", name: "Spaghetti Tomato & Tuna", price: 600.00, description: "Flaked light tuna tossed with sweet tomatoes, capers, and olive oil.", isVeg: false, isFasting: false, isSpicy: false, image: "pasta_spag" },
+                    { id: "spag_carbonara", name: "Spaghetti Carbonara", price: 520.80, description: "Classic sauce of eggs, cheese, cured meat, and freshly cracked black pepper.", isVeg: false, isFasting: false, isSpicy: false, image: "pasta_spag" }
+                ]
+            },
+            "penne": {
+                name: "Penne Pasta",
+                icon: "fa-wheat-awn-circle-exclamation",
+                items: [
+                    { id: "penne_arrabbiata", name: "Penne Arrabiata Sauce", price: 458.40, description: "Tubular penne pasta perfect for catching the spicy chili garlic tomato sauce.", isVeg: true, isFasting: true, isSpicy: true, image: "pasta_penne" },
+                    { id: "penne_tuna", name: "Penne Tomato & Tuna", price: 520.80, description: "Flaky chunk tuna simmered in dynamic tomato garlic sauce.", isVeg: false, isFasting: false, isSpicy: false, image: "pasta_penne" },
+                    { id: "penne_cream_tomato", name: "Penne Tomato & Cream", price: 520.80, description: "Seductive pink sauce blend perfectly hugging ridged penne noodles.", isVeg: true, isFasting: false, isSpicy: false, image: "pasta_penne" },
+                    { id: "penne_veg", name: "Penne Vegetable Sauce", price: 438.60, description: "Medley of seasonal mixed veggies in an aromatic tomato herb coat.", isVeg: true, isFasting: true, isSpicy: false, image: "pasta_penne" },
+                    { id: "penne_basil", name: "Penne Basil & Olive Oil", price: 438.00, description: "Light olive oil base fragrant with premium fresh basil leaves.", isVeg: true, isFasting: true, isSpicy: false, image: "pasta_penne" },
+                    { id: "penne_meat", name: "Penne Meat Sauce", price: 520.80, description: "Robust beef Bolognese meat sauce packed with Italian herbs.", isVeg: false, isFasting: false, isSpicy: false, image: "pasta_penne" },
+                    { id: "penne_alfredo", name: "Penne Alfredo Sauce", price: 438.00, description: "Creamy white sauce with rich butter, garlic, and grated parmesan.", isVeg: true, isFasting: false, isSpicy: false, image: "pasta_penne" },
+                    { id: "penne_tomato", name: "Penne Tomato Sauce", price: 418.80, description: "Sweet home-style tomato marinara sauce sprinkled with fresh parsley.", isVeg: true, isFasting: true, isSpicy: false, image: "pasta_penne" }
+                ]
+            },
+            "beef": {
+                name: "Beef Specialities",
+                icon: "fa-stroopwafel",
+                items: [
+                    { id: "beef_fillet", name: "Beef Fillet Steak", price: 1400.00, description: "Premium tender cut beef grilled to your temperature, with garlic butter glaze.", isVeg: false, isFasting: false, isSpicy: false, image: "beef_fillet" },
+                    { id: "beef_fajitas", name: "Beef Fajitas", price: 1400.00, description: "Sizzling skillet of sliced beef, bell peppers, onions, served with tortillas.", isVeg: false, isFasting: false, isSpicy: true, image: "beef_fajitas" },
+                    { id: "beef_flank_roll", name: "Flank Steak Roll", price: 1400.00, description: "Slow-roasted flank steak rolled with fresh spinach, garlic, and sun-dried tomatoes.", isVeg: false, isFasting: false, isSpicy: false, image: "beef_flank_roll" },
+                    { id: "beef_kebab", name: "Beef Kebab", price: 1400.00, description: "Char-grilled skewers of marinated cubed steak beef and sweet bell peppers.", isVeg: false, isFasting: false, isSpicy: false, image: "beef_kebab" }
+                ]
+            },
+            "chicken": {
+                name: "Chicken",
+                icon: "fa-drumstick-bite",
+                items: [
+                    { id: "chick_herb_stuffed", name: "Herb Stuffed Chicken", price: 1100.00, description: "Plump roasted chicken breast filled with aromatic fresh garden herbs and melted cheese.", isVeg: false, isFasting: false, isSpicy: false, image: "chick_stuffed" },
+                    { id: "chick_wing", name: "Chicken Wings", price: 802.00, description: "Crispy fried juicy chicken wings glazed in sticky sweet-chili hotel sauce.", isVeg: false, isFasting: false, isSpicy: true, image: "chick_wing" },
+                    { id: "chick_fajitas", name: "Chicken Fajitas", price: 1100.00, description: "Sizzling strips of spiced chicken, grilled bell peppers, and sliced red onions.", isVeg: false, isFasting: false, isSpicy: true, image: "chick_fajitas" },
+                    { id: "chick_breast", name: "Chicken Breast", price: 1100.00, description: "Tender pan-seared or grilled butterfly chicken breast lightly seasoned.", isVeg: false, isFasting: false, isSpicy: false, image: "chick_breast" },
+                    { id: "chick_mixed_grill", name: "Yatu Special Mixed Grill", price: 1400.00, description: "Showstopping platter of assorted grilled meats, seasoned wings, and kebabs.", isVeg: false, isFasting: false, isSpicy: false, image: "chick_mixed_grill" },
+                    { id: "chick_roast_whole", name: "Roasted Chicken (Whole)", price: 5200.00, description: "A beautifully golden whole-roasted country chicken perfect for sharing.", isVeg: false, isFasting: false, isSpicy: false, image: "chick_roast" },
+                    { id: "chick_roast_half", name: "Roasted Chicken (Half)", price: 2600.00, description: "Golden rotisserie-roasted half chicken seasoned with master herbs.", isVeg: false, isFasting: false, isSpicy: false, image: "chick_roast" },
+                    { id: "chick_fried", name: "Fried Chicken", price: 1100.00, description: "Crunchy golden seasoned buttermilk batter fried chicken pieces.", isVeg: false, isFasting: false, isSpicy: false, image: "chick_fried" },
+                    { id: "chick_peri_peri", name: "Yatu Peri Peri Chicken", price: 1100.00, description: "Bold, hot, and tangy citrus peri-peri chili paste glazed grilled chicken.", isVeg: false, isFasting: false, isSpicy: true, image: "chick_peri_peri" },
+                    { id: "chick_curry", name: "Chicken Curry", price: 1100.00, description: "Warm aromatic spiced chicken curry stew with carrots, potatoes and side of rice.", isVeg: false, isFasting: false, isSpicy: false, image: "chick_curry" }
+                ]
+            },
+            "fish": {
+                name: "Fish Dishes",
+                icon: "fa-fish",
+                items: [
+                    { id: "fish_nile_grilled", name: "Yatu Grilled Nile Perch", price: 1800.00, description: "Perfect local Nile Perch fillet grilled with lemon, herbs, and garlic butter sauce.", isVeg: false, isFasting: true, isSpicy: false, image: "fish_nile_perch" },
+                    { id: "fish_nile_fried", name: "Fried Nile Perch", price: 1800.00, description: "Deep-fried skin-on Nile Perch fillets with local spice dry rub coating.", isVeg: false, isFasting: true, isSpicy: false, image: "fish_nile_perch" },
+                    { id: "fish_dulet", name: "Fish Dulet", price: 802.00, description: "Finely minced fresh Nile perch cooked with red onions, green peppers, cardamom, and nitir kibe.", isVeg: false, isFasting: true, isSpicy: true, image: "fish_dulet" },
+                    { id: "fish_gulash", name: "Fish Goulash", price: 1185.00, description: "Cube-cut fish fillet simmered in seasoned garlic tomato gravy stew.", isVeg: false, isFasting: true, isSpicy: true, image: "fish_goulash" },
+                    { id: "fish_cutlet", name: "Fish Cutlet", price: 1185.85, description: "Herb-breaded fish fillet deep-fried till golden-crisp, served with lemon.", isVeg: false, isFasting: true, isSpicy: false, image: "fish_cutlet" }
+                ]
+            },
+            "national": {
+                name: "National Dishes",
+                icon: "fa-plate-wheat",
+                items: [
+                    { id: "nat_shiro_wot", name: "Shiro Wot", price: 492.00, description: "Rich chickpeas flour stew slow-simmered with onions, garlic, berbere spices, served on soft Injera.", isVeg: true, isFasting: true, isSpicy: true, image: "nat_shiro" },
+                    { id: "nat_bozena", name: "Bozena Shiro", price: 802.00, description: "Rich chickpea flour shiro stew enhanced with tender cubes of beef and nitir kibe.", isVeg: false, isFasting: false, isSpicy: true, image: "nat_bozena" },
+                    { id: "nat_beyeayinet", name: "Beyeayinet (Fasting Veggie Platter)", price: 607.13, description: "An array of local plant stews, cabbage, lentils, collard greens, beetroot, on standard Injera.", isVeg: true, isFasting: true, isSpicy: true, image: "nat_beyeayinet" },
+                    { id: "nat_yatu_combo", name: "Yatu Special Combo", price: 1976.28, description: "Grand master platter combining premium beef wots, chicken, boiled egg, and local greens.", isVeg: false, isFasting: false, isSpicy: true, image: "nat_combo" },
+                    { id: "nat_chikina", name: "Chikina Tibs", price: 1100.00, description: "Ultra-tender beef sirloin sauteed in garlic, jalapeños, onions, and rosemary sprigs.", isVeg: false, isFasting: false, isSpicy: true, image: "nat_tibs" }
+                ]
+            },
+            "breakfast": {
+                name: "Breakfast",
+                icon: "fa-mug-saucer",
+                items: [
+                    { id: "bf_combo", name: "Breakfast Combo Platter", price: 878.00, description: "Hearty hotel morning plate featuring meat sauce egg, bread rolls, and sweet extras.", isVeg: false, isFasting: false, isSpicy: false, image: "bf_combo" },
+                    { id: "bf_plain_omelette", name: "Plain Omelette", price: 350.86, description: "Light and fluffy pan-fried triple egg omelette seasoned with salt and white pepper.", isVeg: true, isFasting: false, isSpicy: false, image: "bf_omelette" },
+                    { id: "bf_fried_egg", name: "Fried Egg", price: 384.80, description: "Crispy edges sunny side up or over easy eggs pan seared in quality butter.", isVeg: true, isFasting: false, isSpicy: false, image: "bf_eggs" },
+                    { id: "bf_scrambled_egg", name: "Scrambled Egg", price: 355.20, description: "Fluffy, creamy local eggs lightly beaten and softly cooked in fresh butter.", isVeg: true, isFasting: false, isSpicy: false, image: "bf_scrambled" },
+                    { id: "bf_spanish_omelette", name: "Spanish Omelette", price: 422.50, description: "Satisfying thick potato egg omelette studded with fresh green peppers and onions.", isVeg: true, isFasting: false, isSpicy: false, image: "bf_spanish" },
+                    { id: "bf_cheese_omelette", name: "Cheese Omelette", price: 436.00, description: "Folded fluffy eggs oozing with hot melted mozzarella and cheddar cheeses.", isVeg: true, isFasting: false, isSpicy: false, image: "bf_cheese" },
+                    { id: "bf_egg_meat", name: "Egg with Meat Sauce", price: 478.70, description: "Local soft eggs accompanied by seasoned ground beef Bolognese sauce.", isVeg: false, isFasting: false, isSpicy: false, image: "bf_egg_meat" },
+                    { id: "bf_chechebsa", name: "Chechebsa", price: 268.00, description: "Shredded warm local thin bread fried with rich spiced butter (Kibe) and berbere sauce.", isVeg: true, isFasting: false, isSpicy: false, image: "bf_chechebsa" },
+                    { id: "bf_quanta", name: "Quanta Firfir", price: 802.00, description: "Torn pieces of Injera soaked in a rich dried beef jerky (Quanta) berbere spiced stew.", isVeg: false, isFasting: false, isSpicy: true, image: "bf_quanta" },
+                    { id: "bf_tibs_firfir", name: "Tibs Firfir", price: 802.00, description: "Torn pieces of Injera soaked in a delicious spiced gravy sauteed with tender beef strips.", isVeg: false, isFasting: false, isSpicy: true, image: "bf_tibs" },
+                    { id: "bf_featera", name: "Featera with Egg Special", price: 453.00, description: "Crispy local layered pastry pancake stuffed with warm eggs, honey drizzle option.", isVeg: true, isFasting: false, isSpicy: false, image: "bf_featera" }
+                ]
+            },
+            "sandwiches": {
+                name: "Burgers & Sandwiches",
+                icon: "fa-hamburger",
+                items: [
+                    { id: "sand_beef_burg", name: "Beef Burger", price: 750.00, description: "Charbroiled premium beef patty, toasted bun, lettuce, ripe tomatoes, red onions.", isVeg: false, isFasting: false, isSpicy: false, image: "sand_burger" },
+                    { id: "sand_steak", name: "Steak Sandwich", price: 732.00, description: "Shaved prime steak slices, sautéed peppers, and melted cheese inside a baguette.", isVeg: false, isFasting: false, isSpicy: false, image: "sand_steak" },
+                    { id: "sand_cheese_burg", name: "Cheese Burger", price: 800.00, description: "Juicy beef burger topped with thick melted cheddar cheese, house burger sauce.", isVeg: false, isFasting: false, isSpicy: false, image: "sand_burger" },
+                    { id: "sand_veg", name: "Vegetable Sandwich", price: 432.00, description: "Satisfying layering of crisp cucumber, tomato, sweet onion, lettuce, and light house spread.", isVeg: true, isFasting: true, isSpicy: false, image: "sand_veg" },
+                    { id: "sand_special_chicken", name: "Yatu Special Chicken Sandwich", price: 771.00, description: "Marinated juicy grilled chicken breast, fresh avocado layers, bacon, and signature garlic aioli.", isVeg: false, isFasting: false, isSpicy: false, image: "sand_chicken" },
+                    { id: "sand_chick_burg", name: "Chicken Burger", price: 800.00, description: "Seasoned pan-seared chicken fillet topped with fresh greens, in a sesame bun.", isVeg: false, isFasting: false, isSpicy: false, image: "sand_burger" },
+                    { id: "sand_tuna", name: "Tuna Sandwich", price: 650.00, description: "Tuna flakes, sweet red onions, light mayonnaise, stuffed in locally baked fresh bread.", isVeg: false, isFasting: false, isSpicy: false, image: "sand_tuna" },
+                    { id: "sand_club", name: "Club Sandwich", price: 650.00, description: "Triple decker load of toasted bread, chicken breast, ham, fried egg, lettuce, tomato.", isVeg: false, isFasting: false, isSpicy: false, image: "sand_club" },
+                    { id: "sand_fish", name: "Fish Sandwich", price: 968.00, description: "Crisp breaded golden fish fillet, creamy house tartar sauce, fresh lettuce greens.", isVeg: false, isFasting: false, isSpicy: false, image: "sand_fish" },
+                    { id: "sand_chicken", name: "Chicken Sandwich", price: 800.00, description: "Shredded chicken and roasted sweet peppers tossed in savory light dressing.", isVeg: false, isFasting: false, isSpicy: false, image: "sand_chicken" }
+                ]
+            },
+            "rice": {
+                name: "Rice Menu",
+                icon: "fa-bowl-rice",
+                items: [
+                    { id: "rice_arrabbiata", name: "Rice Arrabiata Sauce", price: 400.20, description: "White basmati rice topped with spicy signature hot chili garlic tomato sauce.", isVeg: true, isFasting: true, isSpicy: true, image: "rice_dish" },
+                    { id: "rice_basil", name: "Rice Basil & Olive Oil", price: 419.75, description: "Fluffy seasoned rice gently tossed in olive oil with chopped sweet basil.", isVeg: true, isFasting: true, isSpicy: false, image: "rice_dish" },
+                    { id: "rice_tomato", name: "Rice Tomato Sauce", price: 401.35, description: "Fragrant rice drenched in rich seasoned homestyle tomato marinara sauce.", isVeg: true, isFasting: true, isSpicy: false, image: "rice_dish" },
+                    { id: "rice_tuna", name: "Rice Tomato & Tuna", price: 615.25, description: "Basmati rice topped with flaked tuna cooked with sweet tomatoes and garlic.", isVeg: false, isFasting: false, isSpicy: false, image: "rice_dish" },
+                    { id: "rice_alfredo", name: "Rice Alfredo Sauce", price: 401.35, description: "Comforting base of seasoned rice covered in a creamy, butter white sauce.", isVeg: true, isFasting: false, isSpicy: false, image: "rice_dish" },
+                    { id: "rice_veg", name: "Rice Vegetable Sauce", price: 418.60, description: "Rice topped with pan-cooked fresh local farm vegetables in herb broth.", isVeg: true, isFasting: true, isSpicy: false, image: "rice_dish" },
+                    { id: "rice_meat", name: "Rice Meat Sauce", price: 615.25, description: "White rice loaded with robust seasoned ground beef Bolognese marinara sauce.", isVeg: false, isFasting: false, isSpicy: false, image: "rice_dish" },
+                    { id: "rice_cream_tomato", name: "Rice Tomato & Cream", price: 481.85, description: "Steamy hot rice pairing wonderfully with our custom velvety rose pink sauce.", isVeg: true, isFasting: false, isSpicy: false, image: "rice_dish" }
+                ]
+            },
+            "salads": {
+                name: "Salads",
+                icon: "fa-leaf",
+                items: [
+                    { id: "salad_caesar", name: "Chicken Caesar Salad", price: 540.00, description: "Crisp romaine, tender grilled chicken, golden buttery croutons, and rich Caesar dressing.", isVeg: false, isFasting: false, isSpicy: false, image: "salad_veg" },
+                    { id: "salad_eyuel", name: "Eyuel Salad", price: 600.00, description: "Fresh signature house salad packed with local vegetables, herbs, and light vinaigrette.", isVeg: true, isFasting: true, isSpicy: false, image: "salad_veg" },
+                    { id: "salad_tuna", name: "Tuna Salad", price: 540.00, description: "Mixed salad greens topped with flakes of tender tuna, tomatoes, olives, and dressing.", isVeg: false, isFasting: false, isSpicy: false, image: "salad_veg" },
+                    { id: "salad_mixed", name: "Mixed Vegetable Salad", price: 490.00, description: "A classic toss of hand-cut local cucumbers, garden tomatoes, and sweet red onions.", isVeg: true, isFasting: true, isSpicy: false, image: "salad_veg" },
+                    { id: "salad_mozzarella", name: "Mozzarella Tomato Salad", price: 540.00, description: "Italian style Caprese with sliced fresh mozzarella, ripe field tomatoes, and sweet basil.", isVeg: true, isFasting: false, isSpicy: false, image: "salad_veg" },
+                    { id: "salad_special", name: "Yatu Special Salad", price: 650.00, description: "Bounty of premium greens, garden veggies, olives, boiled egg, tossed in chef's custom dressing.", isVeg: false, isFasting: false, isSpicy: false, image: "salad_veg" }
+                ]
+            },
+            "specialty_juices": {
+                name: "Specialty Juices",
+                icon: "fa-glass-water",
+                items: [
+                    { id: "juice_detox", name: "Detox Cleanse Juice", price: 276.68, description: "Superfood green power mix of pineapple, fresh lemon juice, crisp cucumber, and warming ginger root.", isVeg: true, isFasting: true, isSpicy: false, image: "juice_green" },
+                    { id: "juice_digestion", name: "Aid Digestion Juice", price: 276.68, description: "Crisp apple, celery stalks, cooling cucumber, and tart lemon to soothe the system.", isVeg: true, isFasting: true, isSpicy: false, image: "juice_green" },
+                    { id: "juice_hydrate", name: "Hydrate & Refresh Juice", price: 276.68, description: "Watermelon juice, fresh cucumber, squeeze of lemon, and sweet field mint leaves.", isVeg: true, isFasting: true, isSpicy: false, image: "juice_red" },
+                    { id: "juice_immunity", name: "Immunity Boost Juice", price: 276.68, description: "High-vitamin blend of sweet orange, golden mango, fresh carrot juice, and fresh ginger.", isVeg: true, isFasting: true, isSpicy: false, image: "juice_orange" },
+                    { id: "juice_heart", name: "Heart Health Juice", price: 276.68, description: "Nutrient-packed juice of red beetroot, fresh pomegranate, raw ginger, and lemon.", isVeg: true, isFasting: true, isSpicy: false, image: "juice_red" },
+                    { id: "juice_bloating", name: "Anti-Bloat green blend", price: 276.68, description: "De-bloating pineapple, parsley sprigs, green cucumber, and digestive ginger.", isVeg: true, isFasting: true, isSpicy: false, image: "juice_green" },
+                    { id: "juice_energy", name: "Energy & Blood Flow Juice", price: 276.68, description: "Invigorating mix of earthy beetroot, red bell pepper, sweet orange, and carrots.", isVeg: true, isFasting: true, isSpicy: false, image: "juice_red" },
+                    { id: "juice_anemia", name: "Anemia Support Juice", price: 276.68, description: "Iron-rich combination of beetroot, crisp apple, and fresh sweet carrot.", isVeg: true, isFasting: true, isSpicy: false, image: "juice_red" },
+                    { id: "juice_fatigue", name: "Anti-Fatigue blend", price: 276.68, description: "Fresh tomato juice, sweet orange juice, finished with warm fresh turmeric extract.", isVeg: true, isFasting: true, isSpicy: false, image: "juice_orange" }
+                ]
+            },
+            "juices": {
+                name: "Fresh Juices",
+                icon: "fa-wine-glass",
+                items: [
+                    { id: "jf_mixed", name: "Mixed Juice with Sambusa", price: 350.00, description: "Beautifully layered natural juices served alongside a crisp golden local sambusa.", isVeg: true, isFasting: true, isSpicy: false, image: "juice_layered" },
+                    { id: "jf_pineapple", name: "Pineapple Juice with Sambusa", price: 399.72, description: "Freshly squeezed natural sweet pineapple juice served with a savory sambusa.", isVeg: true, isFasting: true, isSpicy: false, image: "juice_orange" },
+                    { id: "jf_mango", name: "Mango Juice with Sambusa", price: 399.72, description: "Thick velvety ripe local mango nectar served alongside our hot sambusa pastry.", isVeg: true, isFasting: true, isSpicy: false, image: "juice_orange" },
+                    { id: "jf_papaya", name: "Papaya Juice", price: 299.80, description: "Thick, creamy, nutrient-rich local papaya pure juice blended fresh with lime drops.", isVeg: true, isFasting: true, isSpicy: false, image: "juice_orange" },
+                    { id: "jf_watermelon", name: "Watermelon Juice with Sambusa", price: 299.00, description: "Cooling ice-blended natural sweet watermelon juice served with hot local sambusa.", isVeg: true, isFasting: true, isSpicy: false, image: "juice_red" },
+                    { id: "jf_avocado", name: "Avocado Juice with Sambusa", price: 287.86, description: "Ultra-thick, rich local avocado shake finished with citrus layers and savory sambusa.", isVeg: true, isFasting: true, isSpicy: false, image: "juice_green" },
+                    { id: "jf_telba", name: "Telba Juice", price: 299.80, description: "Traditional roasted flaxseed (Telba) blended smoothly with pure natural honey and water.", isVeg: true, isFasting: true, isSpicy: false, image: "juice_layered" }
+                ]
+            },
+            "hot_drinks": {
+                name: "Hot Drinks",
+                icon: "fa-mug-hot",
+                items: [
+                    { id: "hot_tea", name: "Tea", price: 68.00, description: "Steeping black tea leaves served steaming hot with fresh sugar and lemon slice.", isVeg: true, isFasting: true, isSpicy: false, image: "drink_hot" },
+                    { id: "hot_coffee", name: "Brewed Coffee", price: 75.00, description: "House blend of local organic coffee beans slowly brewed for ultimate aroma.", isVeg: true, isFasting: true, isSpicy: false, image: "drink_hot" },
+                    { id: "hot_sprice", name: "Tea-Coffee Spiced (Sprice)", price: 80.00, description: "Unique local half-tea, half-coffee layering spiked with local aromatic herbs.", isVeg: true, isFasting: true, isSpicy: false, image: "drink_hot" },
+                    { id: "hot_milk", name: "Hot Milk", price: 75.00, description: "Warm steamed sweet dairy milk, excellent on chilly highlands mornings.", isVeg: true, isFasting: false, isSpicy: false, image: "drink_hot" },
+                    { id: "hot_american", name: "Americano Coffee", price: 110.00, description: "Double shot of rich espresso hot-water diluted to perfect black coffee level.", isVeg: true, isFasting: true, isSpicy: false, image: "drink_hot" },
+                    { id: "hot_trad", name: "Traditional Ethiopian Coffee", price: 102.76, description: "Experience clay Jebena boiled deep dark coffee served with popcorn aroma.", isVeg: true, isFasting: true, isSpicy: false, image: "drink_hot" },
+                    { id: "hot_milk_coffee", name: "Milk with Coffee", price: 87.55, description: "Warm, satisfying mix of steamed sweet fresh milk and house espresso.", isVeg: true, isFasting: false, isSpicy: false, image: "drink_hot" },
+                    { id: "hot_macchiato", name: "Macchiato", price: 105.00, description: "Rich dark shot of local espresso with dollop of textured creamy milk foam.", isVeg: true, isFasting: false, isSpicy: false, image: "drink_hot" },
+                    { id: "hot_cappuccino", name: "Cappuccino", price: 97.00, description: "Balanced layer of espresso, rich steamed milk, and light billowy microfoam.", isVeg: true, isFasting: false, isSpicy: false, image: "drink_hot" },
+                    { id: "hot_chocolate", name: "Hot Chocolate", price: 97.00, description: "Rich, creamy warm cocoa blend whipped up with warm milk.", isVeg: true, isFasting: false, isSpicy: false, image: "drink_hot" },
+                    { id: "hot_ginger_tea", name: "Ginger Tea", price: 85.00, description: "Boiled fiery organic local ginger root slices steeped hot to clear and revitalize.", isVeg: true, isFasting: true, isSpicy: false, image: "drink_hot" },
+                    { id: "hot_double_macc", name: "Double Macchiato", price: 135.00, description: "Bold double-strength espresso shot crowned with steamed velvety milk foam.", isVeg: true, isFasting: false, isSpicy: false, image: "drink_hot" },
+                    { id: "hot_special_tea", name: "Special Spiced Tea", price: 50.00, description: "Fragrant black tea leaves infused with cinnamon bark, cardamom pods, and cloves.", isVeg: true, isFasting: true, isSpicy: false, image: "drink_hot" }
+                ]
+            },
+            "desserts": {
+                name: "Dessert & Pastry",
+                icon: "fa-cake-slice",
+                items: [
+                    { id: "des_english", name: "English Fruit Cake", price: 235.00, description: "Moist, rich traditional pound cake packed with sweet candied fruits and raisins.", isVeg: true, isFasting: false, isSpicy: false, image: "pastry_cake" },
+                    { id: "des_chocolate", name: "Chocolate Custard", price: 235.00, description: "Rich, creamy chocolate pudding dessert topped with sweet whipped dairy cream.", isVeg: true, isFasting: false, isSpicy: false, image: "pastry_cake" },
+                    { id: "des_fruit_punch", name: "Fruit Salad / Punch", price: 308.10, description: "Cool refreshing cup of seasonal sweet local fruits in light syrup wash.", isVeg: true, isFasting: true, isSpicy: false, image: "pastry_cake" },
+                    { id: "des_brownie", name: "Fasting Brownie", price: 235.00, description: "Rich, dense chocolate cocoa cake baked completely egg-free and dairy-free.", isVeg: true, isFasting: true, isSpicy: false, image: "pastry_cake" },
+                    { id: "des_black_forest", name: "Black Forest Cake", price: 235.00, description: "Layers of moist chocolate sponge cake, sweet whipped cream, and cherries.", isVeg: true, isFasting: false, isSpicy: false, image: "pastry_cake" },
+                    { id: "des_strawberry", name: "Strawberry Cake", price: 235.00, description: "Light fluffy vanilla cake sandwiching sweet pink strawberries and whipped cream.", isVeg: true, isFasting: false, isSpicy: false, image: "pastry_cake" },
+                    { id: "des_white_forest", name: "White Forest Cake", price: 235.00, description: "Delicate vanilla sponge layered with white chocolate shavings and field cherries.", isVeg: true, isFasting: false, isSpicy: false, image: "pastry_cake" },
+                    { id: "des_croissant", name: "Croissant Cake", price: 235.00, description: "Buttery, flaky local croissant pastry sweetened with honey and light sugar glaze.", isVeg: true, isFasting: false, isSpicy: false, image: "pastry_cake" },
+                    { id: "des_mili_foni", name: "Mille-Feuille (Mili Foni)", price: 235.00, description: "Traditional layered crisp puff pastry sheets sandwiching smooth vanilla custard.", isVeg: true, isFasting: false, isSpicy: false, image: "pastry_cake" },
+                    { id: "des_torta", name: "Grand Torta Celebration Cake", price: 3557.31, description: "Exquisite whole custom hotel celebration cake made to order.", isVeg: true, isFasting: false, isSpicy: false, image: "pastry_cake" },
+                    { id: "des_opera", name: "Opera Cake", price: 235.00, description: "French style layered almond sponge soaked in coffee syrup, chocolate ganache.", isVeg: true, isFasting: false, isSpicy: false, image: "pastry_cake" }
+                ]
+            },
+            "beers": {
+                name: "Beers",
+                icon: "fa-beer-mug-empty",
+                items: [
+                    { id: "beer_heineken", name: "Heineken Premium Beer", price: 197.63, description: "Cold-served premium international lager beer with golden clarity and crisp taste.", isVeg: true, isFasting: true, isSpicy: false, image: "drink_beer" },
+                    { id: "beer_habesha", name: "Habesha Beer", price: 150.20, description: "Local cold beer celebrating authentic rich local malt flavors.", isVeg: true, isFasting: true, isSpicy: false, image: "drink_beer" },
+                    { id: "beer_bedele", name: "Bedele Beer", price: 150.20, description: "Refreshing cold local lager beer with premium highland hops.", isVeg: true, isFasting: true, isSpicy: false, image: "drink_beer" },
+                    { id: "beer_castel", name: "Castel Beer", price: 150.20, description: "Crispy clear golden lager brewed locally to supreme standards.", isVeg: true, isFasting: true, isSpicy: false, image: "drink_beer" },
+                    { id: "beer_harar", name: "Harar Beer", price: 150.20, description: "Iconic local rich lager beer brewed deep from Harar highlands.", isVeg: true, isFasting: true, isSpicy: false, image: "drink_beer" },
+                    { id: "beer_st_george", name: "St. George Beer", price: 150.00, description: "Ethiopia's oldest and most iconic crisp golden lager brand.", isVeg: true, isFasting: true, isSpicy: false, image: "drink_beer" },
+                    { id: "beer_harar_sofi", name: "Harar Sofi (Non-Alcoholic Malt)", price: 109.46, description: "Crisp dark sweet roasted non-alcoholic malt beverage.", isVeg: true, isFasting: true, isSpicy: false, image: "drink_beer" },
+                    { id: "beer_buckler", name: "Buckler (Non-Alcoholic Beer)", price: 171.53, description: "A premium imported zero-alcohol pale lager beer.", isVeg: true, isFasting: true, isSpicy: false, image: "drink_beer" },
+                    { id: "beer_nigus", name: "Nigus Amber Beer", price: 109.46, description: "Robust malty body local draft-style gold label amber beer.", isVeg: true, isFasting: true, isSpicy: false, image: "drink_beer" },
+                    { id: "beer_arada", name: "Arada Cider", price: 150.20, description: "Crisp apple-based light fizzy alcoholic sweet local cider drink.", isVeg: true, isFasting: true, isSpicy: false, image: "drink_beer" },
+                    { id: "beer_sinke", name: "Sinke Malt Drink", price: 109.46, description: "Fortified non-alcoholic rich traditional local roasted grain malt juice.", isVeg: true, isFasting: true, isSpicy: false, image: "drink_beer" }
+                ]
+            },
+            "wine": {
+                name: "Wines",
+                icon: "fa-wine-bottle",
+                items: [
+                    { id: "wine_acacia_white", name: "Acacia Medium Sweet White", price: 3067.00, description: "Beautiful sweet finish local white grapes wine with tropical fruit notes (75cl).", isVeg: true, isFasting: true, isSpicy: false, image: "drink_wine" },
+                    { id: "wine_acacia_red", name: "Acacia Medium Sweet Red", price: 3067.00, description: "Smooth light red fruit wine with soft approachable sweetness (75cl).", isVeg: true, isFasting: true, isSpicy: false, image: "drink_wine" },
+                    { id: "wine_acacia_rose", name: "Acacia Medium Sweet Rose", price: 3067.00, description: "Chilled crisp rose notes of summer strawberries and red apples (75cl).", isVeg: true, isFasting: true, isSpicy: false, image: "drink_wine" },
+                    { id: "wine_rv_white", name: "Rift Valley White Wine", price: 3067.00, description: "Elegant dry crisp local premium white wine from the Great Rift Valley soil (75cl).", isVeg: true, isFasting: true, isSpicy: false, image: "drink_wine" },
+                    { id: "wine_rv_syrah", name: "Rift Valley Syrah", price: 3067.00, description: "Bold, dry, full-bodied red with spicy black plum and oak notes (75cl).", isVeg: true, isFasting: true, isSpicy: false, image: "drink_wine" },
+                    { id: "wine_rv_merlot", name: "Rift Valley Merlot", price: 3067.00, description: "Velvety smooth red wine showing ripe cherry, vanilla, and fine cocoa accents (75cl).", isVeg: true, isFasting: true, isSpicy: false, image: "drink_wine" },
+                    { id: "wine_rv_cove", name: "Rift Valley Premium Cove", price: 3067.00, description: "Distinct reserve blend made under strict estate vineyard care (75cl).", isVeg: true, isFasting: true, isSpicy: false, image: "drink_wine" },
+                    { id: "wine_cabernet", name: "Cabernet Sauvignon", price: 3067.00, description: "Deep dark red wine boasting robust tannins, blackcurrant, and cedar (75cl).", isVeg: true, isFasting: true, isSpicy: false, image: "drink_wine" },
+                    { id: "wine_antecia", name: "Antecia Sweet White", price: 3067.00, description: "Deliciously aromatic dessert sweet white wine of delicate blossoms (75cl).", isVeg: true, isFasting: true, isSpicy: false, image: "drink_wine" }
+                ]
+            },
+            "liquor": {
+                name: "Premium Liquors",
+                icon: "fa-whiskey-glass",
+                items: [
+                    { id: "liq_jw_black", name: "Johnnie Walker Black Label (12Y)", price: 11422.92, description: "The iconic blend of premium aged Scotch Whiskies rich with dry smoke notes.", isVeg: true, isFasting: true, isSpicy: false, image: "drink_liquor" },
+                    { id: "liq_absolut", name: "Absolut Vodka Premium", price: 6300.00, description: "Exceptionally clean Swedish winter wheat vodka distilled to superb purity.", isVeg: true, isFasting: true, isSpicy: false, image: "drink_liquor" },
+                    { id: "liq_cavalli", name: "Roberto Cavalli Luxury Vodka", price: 8263.20, description: "Premium, ultra-elegant Italian vodka distilled with soft Alps stream water.", isVeg: true, isFasting: true, isSpicy: false, image: "drink_liquor" },
+                    { id: "liq_gordons", name: "Gordon's London Dry Gin", price: 9486.16, description: "Classic refreshing juniper and botanicals dry gin, perfectly cold-filtered.", isVeg: true, isFasting: true, isSpicy: false, image: "drink_liquor" },
+                    { id: "liq_jw_blue", name: "Johnnie Walker Blue Label", price: 60000.00, description: "Our ultimate luxury Scotch whisky blend composed of extremely rare master casks.", isVeg: true, isFasting: true, isSpicy: false, image: "drink_liquor" },
+                    { id: "liq_bottega", name: "Bottega White Grappa (75cl)", price: 5138.34, description: "Excellent aromatic white grape pomace distill from prestigious Italian vineyards.", isVeg: true, isFasting: true, isSpicy: false, image: "drink_liquor" }
+                ]
+            },
+            "soft_drinks": {
+                name: "Soft Drinks",
+                icon: "fa-bottle-water",
+                items: [
+                    { id: "soft_generic", name: "Soft Drinks (Coca-Cola / Sprite / Fanta)", price: 83.32, description: "Served ice-cold in standard glass bottle with slice of fresh lemon.", isVeg: true, isFasting: true, isSpicy: false, image: "drink_soda" },
+                    { id: "soft_sparkling", name: "Sparkling Mineral Water", price: 92.52, description: "Bubbling refreshing mineral water served chilled to clear the palate.", isVeg: true, isFasting: true, isSpicy: false, image: "drink_water" },
+                    { id: "soft_water_half", name: "Natural Spring Water 0.5L", price: 37.51, description: "Pure local highlands natural bottled mountain spring water.", isVeg: true, isFasting: true, isSpicy: false, image: "drink_water" },
+                    { id: "soft_water_full", name: "Natural Spring Water 1.0L", price: 51.40, description: "Shareable large bottle of premium pure mineral spring water.", isVeg: true, isFasting: true, isSpicy: false, image: "drink_water" }
+                ]
+            }
+        };
+
+        // UI Food emoji icons to avoid broken image links
+        const fallbackIcons = {
+            "soup_minestrone": "🥣", "soup_chicken_cream": "🍲", "pizza_polpetta": "🍕", "pizza_margherita": "🍕",
+            "pizza_yatu_special": "🍕", "pizza_med_veg": "🍕", "pizza_mini": "🍕", "pizza_prosciutto": "🍕",
+            "pasta_spag": "🍝", "pasta_penne": "🍝", "beef_fillet": "🥩", "beef_fajitas": "🥘",
+            "beef_flank_roll": "🥩", "beef_kebab": "🍢", "chick_stuffed": "🍗", "chick_wing": "🔥",
+            "chick_fajitas": "🥘", "chick_breast": "🍗", "chick_mixed_grill": "🍖", "chick_roast": "🍗",
+            "chick_fried": "🍗", "chick_peri_peri": "🌶️", "chick_curry": "🍛", "fish_nile_perch": "🐟",
+            "fish_dulet": "🐟", "fish_goulash": "🍲", "fish_cutlet": "🐟", "nat_shiro": "🥘",
+            "nat_bozena": "🥘", "nat_beyeayinet": "🥙", "nat_combo": "🥘", "nat_tibs": "🥩",
+            "bf_combo": "🍳", "bf_omelette": "🍳", "bf_eggs": "🍳", "bf_scrambled": "🍳",
+            "bf_spanish": "🍳", "bf_cheese": "🍳", "bf_egg_meat": "🍳", "bf_chechebsa": "🥞",
+            "bf_quanta": "🥘", "bf_tibs": "🥘", "bf_featera": "🥞", "sand_burger": "🍔",
+            "sand_steak": "🥪", "sand_veg": "🥪", "sand_chicken": "🥪", "sand_tuna": "🥪",
+            "sand_club": "🥪", "sand_fish": "🥪", "rice_dish": "🍛", "salad_veg": "🥗",
+            "juice_green": "🥤", "juice_red": "🥤", "juice_orange": "🥤", "juice_layered": "🍹",
+            "drink_hot": "☕", "pastry_cake": "🍰", "drink_beer": "🍺", "drink_wine": "🍷",
+            "drink_liquor": "🥃", "drink_soda": "🥤", "drink_water": "💧"
+        };
+    </script>
+
+    <script>
+        // Core State variables
+        let cart = {};
+        let activeDietFilters = {
+            veg: false,
+            fasting: false
+        };
+        let searchQuery = "";
+        let selectedCategory = "all";
+        
+        // Drink categories list to bypass dietary tag filters and badge renders
+        const drinkCategories = ["specialty_juices", "juices", "hot_drinks", "beers", "wine", "liquor", "soft_drinks"];
+
+        // Initialize Application
+        window.onload = function() {
+            renderCategoryNavigation();
+            filterAndRenderCatalog();
+            updateEstimatorUI();
+        };
+
+        // Render Sidebar and Mobile Scrollable Category Tabs
+        function renderCategoryNavigation() {
+            const desktopNav = document.getElementById('desktop-categories');
+            const mobileNav = document.getElementById('mobile-categories');
+
+            // All Category option
+            let desktopHTML = `
+                <button onclick="selectCategory('all')" id="cat-desktop-all" class="w-full text-left px-3 py-2 rounded-xl text-sm transition-all duration-300 flex items-center justify-between text-zinc-300 hover:bg-zinc-800 font-medium bg-gold-500/10 text-gold-400 border border-gold-500/20">
+                    <span class="flex items-center gap-2"><i class="fa-solid fa-list-ul text-xs"></i> All Catalog</span>
+                    <span class="bg-zinc-950 text-[10px] px-1.5 py-0.5 rounded text-gold-400">${getTotalItemsCount()}</span>
+                </button>
+            `;
+
+            let mobileHTML = `
+                <button onclick="selectCategory('all')" id="cat-mobile-all" class="snap-start flex-shrink-0 bg-gold-500 text-zinc-950 font-bold px-4 py-2 rounded-full text-xs flex items-center gap-1.5 shadow-md">
+                    <i class="fa-solid fa-list-ul"></i> All
+                </button>
+            `;
+
+            // Loop through all defined groups
+            for (const key in menuDatabase) {
+                const cat = menuDatabase[key];
+                const count = cat.items.length;
+                desktopHTML += `
+                    <button onclick="selectCategory('${key}')" id="cat-desktop-${key}" class="w-full text-left px-3 py-2 rounded-xl text-sm transition-all duration-300 flex items-center justify-between text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50">
+                        <span class="flex items-center gap-2"><i class="fa-solid ${cat.icon} text-xs text-zinc-500"></i> ${cat.name}</span>
+                        <span class="bg-zinc-950 text-[10px] px-1.5 py-0.5 rounded text-zinc-400">${count}</span>
+                    </button>
+                `;
+
+                mobileHTML += `
+                    <button onclick="selectCategory('${key}')" id="cat-mobile-${key}" class="snap-start flex-shrink-0 bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-4 py-2 rounded-full text-xs flex items-center gap-1.5 transition-all">
+                        <i class="fa-solid ${cat.icon}"></i> ${cat.name}
+                    </button>
+                `;
+            }
+
+            desktopNav.innerHTML = desktopHTML;
+            mobileNav.innerHTML = mobileHTML;
+        }
+
+        // Get total amount of catalog items
+        function getTotalItemsCount() {
+            let total = 0;
+            for (const key in menuDatabase) {
+                total += menuDatabase[key].items.length;
+            }
+            return total;
+        }
+
+        // Handle Active Selection of Category
+        function selectCategory(categoryKey) {
+            selectedCategory = categoryKey;
+            
+            // Update Active states for navigation buttons
+            // Desktop
+            document.querySelectorAll('[id^="cat-desktop-"]').forEach(btn => {
+                btn.className = "w-full text-left px-3 py-2 rounded-xl text-sm transition-all duration-300 flex items-center justify-between text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50";
+            });
+            const activeDesktop = document.getElementById(`cat-desktop-${categoryKey}`);
+            if(activeDesktop) {
+                activeDesktop.className = "w-full text-left px-3 py-2 rounded-xl text-sm transition-all duration-300 flex items-center justify-between text-gold-400 bg-gold-500/10 border border-gold-500/20 font-medium";
+            }
+
+            // Mobile
+            document.querySelectorAll('[id^="cat-mobile-"]').forEach(btn => {
+                btn.className = "snap-start flex-shrink-0 bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-4 py-2 rounded-full text-xs flex items-center gap-1.5 transition-all";
+            });
+            const activeMobile = document.getElementById(`cat-mobile-${categoryKey}`);
+            if(activeMobile) {
+                activeMobile.className = "snap-start flex-shrink-0 bg-gold-500 text-zinc-950 font-bold px-4 py-2 rounded-full text-xs flex items-center gap-1.5 shadow-md";
+            }
+
+            filterAndRenderCatalog();
+        }
+
+        // Filter search input
+        function handleSearch() {
+            searchQuery = document.getElementById('search-input').value.toLowerCase().trim();
+            filterAndRenderCatalog();
+        }
+
+        // Toggle Vegan/Fasting dietary filter
+        function toggleDietFilter(type) {
+            activeDietFilters[type] = !activeDietFilters[type];
+            
+            const btn = document.getElementById(`${type}-toggle`);
+            if (activeDietFilters[type]) {
+                btn.className = "bg-gold-500/10 border border-gold-500 text-gold-400 rounded-xl p-2 text-xs flex items-center justify-center gap-1.5 transition-all font-semibold";
+            } else {
+                btn.className = "bg-zinc-950 hover:bg-zinc-800 border border-zinc-800 rounded-xl p-2 text-xs flex items-center justify-center gap-1.5 transition-all text-zinc-400";
+            }
+
+            filterAndRenderCatalog();
+        }
+
+        // Clear all active searching & filtering states
+        function clearAllFilters() {
+            searchQuery = "";
+            document.getElementById('search-input').value = "";
+            activeDietFilters.veg = false;
+            activeDietFilters.fasting = false;
+            
+            document.getElementById('veg-toggle').className = "bg-zinc-950 hover:bg-zinc-800 border border-zinc-800 rounded-xl p-2 text-xs flex items-center justify-center gap-1.5 transition-all text-zinc-400";
+            document.getElementById('fasting-toggle').className = "bg-zinc-950 hover:bg-zinc-800 border border-zinc-800 rounded-xl p-2 text-xs flex items-center justify-center gap-1.5 transition-all text-zinc-400";
+            
+            filterAndRenderCatalog();
+        }
+
+        // Main Search & Filter execution with dynamic HTML generation
+        function filterAndRenderCatalog() {
+            const container = document.getElementById('menu-catalog-container');
+            const indicatorBar = document.getElementById('filter-indicator-bar');
+            const activeFiltersContainer = document.getElementById('active-filters-container');
+            
+            let html = "";
+            let matchCount = 0;
+
+            // Manage filter top visual pills
+            let filtersPills = [];
+            if(searchQuery) filtersPills.push(`Search: "${searchQuery}"`);
+            if(activeDietFilters.veg) filtersPills.push('Vegetarian 🌿');
+            if(activeDietFilters.fasting) filtersPills.push('Fasting 🌾');
+
+            if(filtersPills.length > 0) {
+                indicatorBar.classList.remove('hidden');
+                indicatorBar.classList.add('flex');
+                activeFiltersContainer.innerHTML = filtersPills.map(p => `
+                    <span class="bg-gold-500/15 border border-gold-500/30 text-gold-400 px-2.5 py-0.5 rounded-full text-[10px] font-medium">${p}</span>
+                `).join('');
+            } else {
+                indicatorBar.classList.remove('flex');
+                indicatorBar.classList.add('hidden');
+            }
+
+            // Loop and filter database
+            for (const catKey in menuDatabase) {
+                // If specific category filter active
+                if(selectedCategory !== "all" && selectedCategory !== catKey) continue;
+
+                const categoryObj = menuDatabase[catKey];
+                const isDrink = drinkCategories.includes(catKey);
+                
+                // Filter items of this category
+                const matchedItems = categoryObj.items.filter(item => {
+                    const matchesSearch = !searchQuery || 
+                                          item.name.toLowerCase().includes(searchQuery) || 
+                                          item.description.toLowerCase().includes(searchQuery);
+                    
+                    // Drinks bypass diet filters (always match)
+                    const matchesVeg = isDrink || !activeDietFilters.veg || item.isVeg;
+                    const matchesFasting = isDrink || !activeDietFilters.fasting || item.isFasting;
+
+                    return matchesSearch && matchesVeg && matchesFasting;
+                });
+
+                if(matchedItems.length === 0) continue;
+                
+                matchCount += matchedItems.length;
+
+                // Category Section Header
+                html += `
+                    <div class="space-y-6">
+                        <div class="border-b border-zinc-800 pb-3 flex items-center justify-between">
+                            <h2 class="font-serif font-bold text-2xl tracking-wide text-zinc-100 flex items-center gap-3">
+                                <span class="w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center text-gold-500 text-sm">
+                                    <i class="fa-solid ${categoryObj.icon}"></i>
+                                </span>
+                                ${categoryObj.name}
+                            </h2>
+                            <span class="text-xs text-zinc-500">${matchedItems.length} items available</span>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                `;
+
+                // Render dishes of matched items
+                matchedItems.forEach(dish => {
+                    const emoji = fallbackIcons[dish.image] || "🍲";
+                    
+                    // Dietary Tags (Skipped entirely for drinks)
+                    let dietBadges = "";
+                    if(!isDrink) {
+                        if(dish.isVeg) {
+                            dietBadges += `
+                                <span class="bg-green-500/10 border border-green-500/20 text-green-400 text-[10px] px-2 py-0.5 rounded-full flex items-center gap-1 font-medium">
+                                    <i class="fa-solid fa-leaf text-[8px]"></i> Veg
+                                </span>
+                            `;
+                        }
+                        if(dish.isFasting) {
+                            dietBadges += `
+                                <span class="bg-amber-500/10 border border-amber-500/20 text-amber-400 text-[10px] px-2 py-0.5 rounded-full flex items-center gap-1 font-medium">
+                                    <i class="fa-solid fa-wheat-awn text-[8px]"></i> Fasting
+                                </span>
+                            `;
+                        }
+                    }
+                    if(dish.isSpicy) {
+                        dietBadges += `
+                            <span class="bg-red-500/10 border border-red-500/20 text-red-400 text-[10px] px-2 py-0.5 rounded-full flex items-center gap-1 font-medium">
+                                <i class="fa-solid fa-pepper-hot text-[8px]"></i> Spicy
+                            </span>
+                        `;
+                    }
+
+                    html += `
+                        <div class="bg-zinc-900/40 border border-zinc-800/80 hover:border-zinc-700/80 p-5 rounded-2xl flex gap-4 transition-all duration-300 relative group overflow-hidden">
+                            <!-- Visual Graphic -->
+                            <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-xl bg-zinc-950 flex-shrink-0 flex items-center justify-center text-4xl sm:text-5xl border border-zinc-800 shadow-inner select-none transition-transform duration-300 group-hover:scale-105">
+                                ${emoji}
+                            </div>
+                            
+                            <!-- Information -->
+                            <div class="flex-grow flex flex-col justify-between space-y-2">
+                                <div>
+                                    <div class="flex items-start justify-between gap-1.5">
+                                        <h3 class="font-bold text-zinc-100 group-hover:text-gold-400 transition-colors text-sm sm:text-base leading-tight">${dish.name}</h3>
+                                    </div>
+                                    <p class="text-xs text-zinc-400 mt-1 line-clamp-2 leading-relaxed">${dish.description}</p>
+                                </div>
+                                
+                                <div class="flex flex-wrap items-center gap-1.5 pt-1">
+                                    ${dietBadges}
+                                </div>
+
+                                <!-- Action Bottom Line -->
+                                <div class="flex items-center justify-between pt-2 border-t border-zinc-800/60">
+                                    <span class="font-serif font-bold text-zinc-200 text-sm sm:text-base">${dish.price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})} <span class="text-[10px] font-sans text-zinc-500 font-bold tracking-wider">ETB</span></span>
+                                    
+                                    <button onclick="addToBill('${dish.id}', '${dish.name.replace(/'/g, "\\'")}', ${dish.price})" class="bg-zinc-900 hover:bg-gold-500 border border-zinc-700 hover:border-gold-500 text-gold-400 hover:text-zinc-950 text-xs font-bold px-3 py-1.5 rounded-xl transition-all duration-300 flex items-center gap-1.5 transform active:scale-95">
+                                        <i class="fa-solid fa-plus-circle"></i> Add Estimator
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                html += `
+                        </div>
+                    </div>
+                `;
+            }
+
+            if(matchCount === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-24 space-y-4">
+                        <div class="text-5xl">🔍</div>
+                        <h3 class="font-serif text-lg text-zinc-300 font-bold">No Dishes Match Your Search</h3>
+                        <p class="text-xs text-zinc-500 max-w-sm mx-auto">Try checking your spelling, looking in another category, or removing some dietary tags.</p>
+                        <button onclick="clearAllFilters()" class="bg-gold-500 text-zinc-950 font-bold px-5 py-2.5 rounded-full text-xs shadow-md">Clear All Filters</button>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = html;
+            }
+        }
+    </script>
+
+    <script>
+        // Toggle the visible state of the calculation sliding side drawer
+        function toggleBillEstimator() {
+            const container = document.getElementById('bill-estimator');
+            const panel = document.getElementById('bill-estimator-panel');
+
+            if(container.classList.contains('opacity-0')) {
+                container.classList.remove('opacity-0', 'invisible');
+                container.classList.add('opacity-100', 'visible');
+                panel.classList.remove('translate-x-full');
+                panel.classList.add('translate-x-0');
+            } else {
+                container.classList.add('opacity-0', 'invisible');
+                container.classList.remove('opacity-100', 'visible');
+                panel.classList.add('translate-x-full');
+                panel.classList.remove('translate-x-0');
+            }
+        }
+
+        // Add a menu element to the estimator list
+        function addToBill(itemId, itemName, price) {
+            if(cart[itemId]) {
+                cart[itemId].quantity += 1;
+            } else {
+                cart[itemId] = {
+                    name: itemName,
+                    price: price,
+                    quantity: 1
+                };
+            }
+
+            updateEstimatorUI();
+            showNotification(`Added "${itemName}" to bill estimator!`);
+        }
+
+        // Update calculations inside estimator drawer UI
+        function updateEstimatorUI() {
+            const itemsContainer = document.getElementById('estimator-items-container');
+            const emptyState = document.getElementById('empty-estimator-state');
+            const badgeCount = document.getElementById('cart-badge-count');
+
+            // Render sub calculation nodes
+            const calcSubtotal = document.getElementById('calc-subtotal');
+            const calcService = document.getElementById('calc-service');
+            const calcVat = document.getElementById('calc-vat');
+            const calcTotal = document.getElementById('calc-total');
+
+            let cartKeys = Object.keys(cart);
+            let totalQuantity = 0;
+            let subtotal = 0;
+
+            if (cartKeys.length === 0) {
+                emptyState.style.display = 'flex';
+                // Clear out leftover children
+                document.querySelectorAll('.estimator-row-item').forEach(el => el.remove());
+                badgeCount.innerText = "0";
+                
+                calcSubtotal.innerText = "0.00 ETB";
+                calcService.innerText = "0.00 ETB";
+                calcVat.innerText = "0.00 ETB";
+                calcTotal.innerText = "0.00 ETB";
+                return;
+            }
+
+            emptyState.style.display = 'none';
+            
+            // Wipe previous list items
+            document.querySelectorAll('.estimator-row-item').forEach(el => el.remove());
+
+            // Build dynamic items list
+            cartKeys.forEach(id => {
+                const item = cart[id];
+                totalQuantity += item.quantity;
+                subtotal += (item.price * item.quantity);
+
+                const itemRow = document.createElement('div');
+                itemRow.className = "estimator-row-item flex items-center justify-between bg-zinc-950 p-4 rounded-xl border border-zinc-800 gap-4";
+                itemRow.innerHTML = `
+                    <div class="flex-grow min-w-0">
+                        <p class="font-bold text-zinc-100 text-sm truncate">${item.name}</p>
+                        <p class="text-xs text-zinc-500 font-medium">${item.price.toFixed(2)} ETB/each</p>
+                    </div>
+                    
+                    <div class="flex items-center gap-3 flex-shrink-0">
+                        <div class="flex items-center bg-zinc-900 border border-zinc-800 rounded-lg overflow-hidden">
+                            <button onclick="decrementQuantity('${id}')" class="px-2 py-1 text-xs text-zinc-400 hover:bg-zinc-800 transition-colors"><i class="fa-solid fa-minus"></i></button>
+                            <span class="px-3 text-xs text-gold-400 font-bold">${item.quantity}</span>
+                            <button onclick="incrementQuantity('${id}')" class="px-2 py-1 text-xs text-zinc-400 hover:bg-zinc-800 transition-colors"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                        <button onclick="removeFromCart('${id}')" class="text-zinc-600 hover:text-red-400 transition-colors"><i class="fa-solid fa-trash-can text-sm"></i></button>
+                    </div>
+                `;
+                // Add right after empty state inside list
+                itemsContainer.appendChild(itemRow);
+            });
+
+            // Math tax estimations
+            const serviceCharge = subtotal * 0.10; // 10% SC
+            const vatCharge = subtotal * 0.15; // 15% VAT
+            const finalEstimatedTotal = subtotal + serviceCharge + vatCharge;
+
+            // Render stats
+            badgeCount.innerText = totalQuantity;
+            calcSubtotal.innerText = `${subtotal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})} ETB`;
+            calcService.innerText = `${serviceCharge.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})} ETB`;
+            calcVat.innerText = `${vatCharge.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})} ETB`;
+            calcTotal.innerText = `${finalEstimatedTotal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})} ETB`;
+        }
+
+        // Increment count
+        function incrementQuantity(id) {
+            if(cart[id]) {
+                cart[id].quantity += 1;
+                updateEstimatorUI();
+            }
+        }
+
+        // Decrement count
+        function decrementQuantity(id) {
+            if(cart[id]) {
+                cart[id].quantity -= 1;
+                if(cart[id].quantity <= 0) {
+                    delete cart[id];
+                }
+                updateEstimatorUI();
+            }
+        }
+
+        // Remove entirely
+        function removeFromCart(id) {
+            if(cart[id]) {
+                delete cart[id];
+                updateEstimatorUI();
+            }
+        }
+
+        // Clear out catalog list entirely
+        function clearEstimator() {
+            cart = {};
+            updateEstimatorUI();
+        }
+
+        // Show customized interactive Toast alerts
+        function showNotification(message) {
+            const toast = document.getElementById('toast-notif');
+            const label = document.getElementById('toast-message');
+
+            label.innerText = message;
+            toast.className = "fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 bg-gold-500 text-zinc-950 font-bold px-6 py-3 rounded-full flex items-center gap-2 shadow-2xl transition-all duration-300 pointer-events-none opacity-100 translate-y-0";
+
+            setTimeout(() => {
+                toast.className = "fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 bg-gold-500 text-zinc-950 font-bold px-6 py-3 rounded-full flex items-center gap-2 shadow-2xl transition-all duration-300 pointer-events-none opacity-0 translate-y-4";
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
